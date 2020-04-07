@@ -23,11 +23,22 @@ public class GroupAnagrams {
     }
 
     static class Solution {
+
+        /**
+         * Two strings are anagrams if and only if their character counts (respective number of occurrences
+         * of each character) are the same.
+         *
+         * @param strs an array of anagrams
+         * @return grouped anagrams
+         */
         public List<List<String>> groupAnagrams(String[] strs) {
             Map<String, List<String>> map = new HashMap<>();
 
             char[] arr;
             for (String str : strs) {
+
+                // in order to transform each string to a map key for grouping anagrams
+                // we need to count how many times each char appeared in the string
                 arr = new char[26];
                 for (char c : str.toCharArray()) {
                     arr[c - 'a']++;
@@ -46,4 +57,5 @@ public class GroupAnagrams {
             return new ArrayList<>(map.values());
         }
     }
+
 }
