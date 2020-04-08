@@ -34,17 +34,12 @@ public class MiddleOfTheLinkedList {
 
     static class Solution {
         public ListNode middleNode(ListNode head) {
-            int index = 1;
-            ListNode middle = head;
-            do {
-                head = head.next;
-                if (index % 2 == 0) {
-                    middle = middle.next;
-                }
-                index++;
-            } while (head != null);
-
-            return middle;
+            ListNode slow = head, fast = head;
+            while (fast != null && fast.next != null) {
+                slow = slow.next;
+                fast = fast.next.next;
+            }
+            return slow;
         }
     }
 
