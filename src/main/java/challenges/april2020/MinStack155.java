@@ -1,6 +1,6 @@
 package challenges.april2020;
 
-import java.util.LinkedList;
+import java.util.ArrayList;
 
 public class MinStack155 {
     public static void main(String[] args) {
@@ -16,34 +16,34 @@ public class MinStack155 {
 
     static class MinStack {
 
-        private LinkedList<Node> list;
+        private int index;
+        private ArrayList<Node> list = new ArrayList<>(128);
 
         /** initialize your data structure here. */
         public MinStack() {
-            list = new LinkedList<>();
         }
 
         public void push(int x) {
             int min;
-            if (list.isEmpty()) {
+            if (index == 0) {
                 min = x;
             } else {
-                Node element = list.element();
+                Node element = list.get(index - 1);
                 min = element.minValue < x ? element.minValue : x;
             }
-            list.push(new Node(x, min));
+            list.add(index++, new Node(x, min));
         }
 
         public void pop() {
-            list.pop();
+            list.remove(--index);
         }
 
         public int top() {
-            return list.element().value;
+            return list.get(index - 1).value;
         }
 
         public int getMin() {
-            return list.element().minValue;
+            return list.get(index - 1).minValue;
         }
 
         private static class Node {
