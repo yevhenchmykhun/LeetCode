@@ -19,22 +19,27 @@ public class LastStoneWeight {
     static class Solution {
         public int lastStoneWeight(int[] stones) {
 
+            // transform array to list and sort at the same time
             int index;
             List<Integer> list = new ArrayList<>(stones.length);
             for (int stone : stones) {
                 index = Collections.binarySearch(list, stone);
                 index = index >= 0 ? index : -(index + 1);
-                list.add(Math.abs(index), stone);
+                list.add(index, stone);
             }
 
+            // smash two stones and put it in correct position in the list
+            int y;
+            int x;
+            int i;
             while (list.size() > 1) {
-                Integer y = list.remove(list.size() - 1);
-                Integer x = list.remove(list.size() - 1);
-                int i = y - x;
-                if (i > 0) {
+                y = list.remove(list.size() - 1);
+                x = list.remove(list.size() - 1);
+                if (y > x) {
+                    i = y - x;
                     index = Collections.binarySearch(list, i);
                     index = index >= 0 ? index : -(index + 1);
-                    list.add(Math.abs(index), i);
+                    list.add(index, i);
                 }
             }
 
