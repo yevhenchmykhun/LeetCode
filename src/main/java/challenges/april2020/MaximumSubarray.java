@@ -1,5 +1,8 @@
 package challenges.april2020;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class MaximumSubarray {
     public static void main(String[] args) {
         Solution solution = new Solution();
@@ -8,23 +11,21 @@ public class MaximumSubarray {
         System.out.println(solution.maxSubArray(new int[]{-2}));
         System.out.println(solution.maxSubArray(new int[]{-2, 5}));
         System.out.println(solution.maxSubArray(new int[]{-2, 5, 2}));
+        System.out.println(solution.maxSubArray(new int[]{-2, -1}));
+        System.out.println(solution.maxSubArray(new int[]{-1, -2}));
     }
 
     static class Solution {
         public int maxSubArray(int[] nums) {
-            int maxSum = nums[0];
-            for (int end = 1; end < nums.length; end++) {
-                for (int start = 0; start <= end; start++) {
-                    int sum = 0;
-                    for (int index = start; index <= end; index++) {
-                        sum += nums[index];
-                    }
 
-                    maxSum = Math.max(sum, maxSum);
-                }
+            // dynamic programming, Kadane's algorithm
+            int bestSum = Integer.MIN_VALUE, currentSum = 0;
+            for (int num : nums) {
+                currentSum = Math.max(num, currentSum + num);
+                bestSum = Math.max(bestSum, currentSum);
             }
 
-            return maxSum;
+            return bestSum;
         }
     }
 }
